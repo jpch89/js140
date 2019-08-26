@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Insert title here</title>
+        <style type="text/css">
+            #areaDiv {
+                border: 1px solid black;
+                width: 300px;
+                height: 50px;
+                margin-bottom: 10px;
+            }
+
+            #showMsg {
+                border: 1px solid black;
+                width: 300px;
+                height: 20px;
+            }
+        </style>
+        <script type="text/javascript">
+            window.onload = function() {
+                /*
+                 * 当鼠标在areaDiv中移动时，在showMsg中来显示鼠标的坐标
+                 */
+                //获取两个div
+                var areaDiv = document.getElementById("areaDiv");
+                var showMsg = document.getElementById("showMsg");
+
+                /*
+                 * onmousemove
+                 * 	- 该事件将会在鼠标在元素中移动时被触发
+                 *
+                 * 事件对象
+                 * 	- 当事件的响应函数被触发时，浏览器每次都会将一个事件对象作为实参传递进响应函数,
+                 * 		在事件对象中封装了当前事件相关的一切信息，比如：鼠标的坐标  键盘哪个按键被按下  鼠标滚轮滚动的方向。。。
+                 */
+                areaDiv.onmousemove = function(event) {
+                    /*
+                     * 在IE8中，响应函数被处罚时，浏览器不会传递事件对象，
+                     * 	在IE8及以下的浏览器中，是将事件对象作为window对象的属性保存的
+                     */
+                    /*if(!event){
+				event = window.event;
+			}*/
+
+                    //解决事件对象的兼容性问题
+                    event = event || window.event;
+
+                    /*
+                     * clientX可以获取鼠标指针的水平坐标
+                     * cilentY可以获取鼠标指针的垂直坐标
+                     */
+                    var x = event.clientX;
+                    var y = event.clientY;
+
+                    //alert("x = "+x + " , y = "+y);
+
+                    //在showMsg中显示鼠标的坐标
+                    showMsg.innerHTML = "x = " + x + " , y = " + y;
+                };
+            };
+        </script>
+    </head>
+    <body>
+        <div id="areaDiv"></div>
+        <div id="showMsg"></div>
+    </body>
+</html>

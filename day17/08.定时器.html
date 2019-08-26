@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			
+			#box1{
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				position: absolute;
+				left: 0;
+			}
+			
+		</style>
+		
+		<script type="text/javascript">
+			
+			window.onload = function(){
+				
+				//获取box1
+				var box1 = document.getElementById("box1");
+				//获取btn01
+				var btn01 = document.getElementById("btn01");
+				
+				//定义一个变量，用来保存定时器的标识
+				var timer;
+				
+				//点击按钮以后，使box1向右移动（left值增大）
+				btn01.onclick = function(){
+					
+					//关闭上一个定时器
+					clearInterval(timer);
+					
+					//开启一个定时器，用来执行动画效果
+					timer = setInterval(function(){
+						
+						//获取box1的原来的left值
+						var oldValue = parseInt(getStyle(box1,"left"));
+						
+						//在旧值的基础上增加
+						var newValue = oldValue + 1;
+						
+						//判断newValue是否大于800
+						if(newValue > 800){
+							newValue = 800;
+						}
+						
+						//将新值设置给box1
+						box1.style.left = newValue + "px";
+						
+						//当元素移动到800px时，使其停止执行动画
+						if(newValue == 800){
+							//达到目标，关闭定时器
+							clearInterval(timer);
+						}
+						
+						
+					},30);
+					
+					
+				};
+				
+			};
+			
+			
+			/*
+			 * 定义一个函数，用来获取指定元素的当前的样式
+			 * 参数：
+			 * 		obj 要获取样式的元素
+			 * 		name 要获取的样式名
+			 */
+			function getStyle(obj , name){
+				
+				if(window.getComputedStyle){
+					//正常浏览器的方式，具有getComputedStyle()方法
+					return getComputedStyle(obj , null)[name];
+				}else{
+					//IE8的方式，没有getComputedStyle()方法
+					return obj.currentStyle[name];
+				}
+				
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		
+		<button id="btn01">点击按钮以后box1向右移动</button>
+		
+		<br /><br />
+		
+		<div id="box1"></div>
+		
+		<div style="width: 0; height: 1000px; border-left:1px black solid; position: absolute; left: 800px;top:0;"></div>
+		
+	</body>
+</html>

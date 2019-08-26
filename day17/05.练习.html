@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			
+			window.onload = function(){
+				
+				/*
+				 * 使图片可以自动切换
+				 */
+				
+				//获取img标签
+				var img1 = document.getElementById("img1");
+				
+				//创建一个数组来保存图片的路径
+				var imgArr = ["img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg","img/5.jpg"];
+				
+				//创建一个变量，用来保存当前图片的索引
+				var index = 0;
+				
+				//定义一个变量，用来保存定时器的标识
+				var timer;
+				
+				//为btn01绑定一个单击响应函数
+				var btn01 = document.getElementById("btn01");
+				btn01.onclick = function(){
+					
+					/*
+					 * 目前，我们每点击一次按钮，就会开启一个定时器，
+					 * 	点击多次就会开启多个定时器，这就导致图片的切换速度过快，
+					 * 	并且我们只能关闭最后一次开启的定时器
+					 */
+					
+					//在开启定时器之前，需要将当前元素上的其他定时器关闭
+					clearInterval(timer);
+					
+					/*
+					 * 开启一个定时器，来自动切换图片
+					 */
+					timer = setInterval(function(){
+						//使索引自增
+						index++;
+						//判断索引是否超过最大索引
+						/*if(index >= imgArr.length){
+							//则将index设置为0
+							index = 0;
+						}*/
+						index %= imgArr.length;
+						//修改img1的src属性
+						img1.src = imgArr[index];
+						
+					},1000);
+				};
+				
+				//为btn02绑定一个单击响应函数
+				var btn02 = document.getElementById("btn02");
+				btn02.onclick = function(){
+					//点击按钮以后，停止图片的自动切换，关闭定时器
+					/*
+					 * clearInterval()可以接收任意参数，
+					 * 	如果参数是一个有效的定时器的标识，则停止对应的定时器
+					 * 	如果参数不是一个有效的标识，则什么也不做
+					 */
+					clearInterval(timer);
+					
+				};
+				
+				
+			};
+			
+		</script>
+	</head>
+	<body>
+		
+		<img id="img1" src="img/1.jpg"/>
+		<br /><br />
+		<button id="btn01">开始</button>
+		<button id="btn02">停止</button>
+	</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			#box1{
+				width: 100px;
+				height: 100px;
+				background-color: red;
+			}
+			
+		</style>
+		<script type="text/javascript">
+			
+			window.onload = function(){
+				
+				
+				//获取id为box1的div
+				var box1 = document.getElementById("box1");
+				
+				//为box1绑定一个鼠标滚轮滚动的事件
+				/*
+				 * onmousewheel鼠标滚轮滚动的事件，会在滚轮滚动时触发，
+				 * 	但是火狐不支持该属性
+				 * 
+				 * 在火狐中需要使用 DOMMouseScroll 来绑定滚动事件
+				 * 	注意该事件需要通过addEventListener()函数来绑定
+				 */
+				
+				
+				box1.onmousewheel = function(event){
+					
+					event = event || window.event;
+					
+					
+					//event.wheelDelta 可以获取鼠标滚轮滚动的方向
+					//向上滚 120   向下滚 -120
+					//wheelDelta这个值我们不看大小，只看正负
+					
+					//alert(event.wheelDelta);
+					
+					//wheelDelta这个属性火狐中不支持
+					//在火狐中使用event.detail来获取滚动的方向
+					//向上滚 -3  向下滚 3
+					//alert(event.detail);
+					
+					
+					/*
+					 * 当鼠标滚轮向下滚动时，box1变长
+					 * 	当滚轮向上滚动时，box1变短
+					 */
+					//判断鼠标滚轮滚动的方向
+					if(event.wheelDelta > 0 || event.detail < 0){
+						//向上滚，box1变短
+						box1.style.height = box1.clientHeight - 10 + "px";
+						
+					}else{
+						//向下滚，box1变长
+						box1.style.height = box1.clientHeight + 10 + "px";
+					}
+					
+					/*
+					 * 使用addEventListener()方法绑定响应函数，取消默认行为时不能使用return false
+					 * 需要使用event来取消默认行为event.preventDefault();
+					 * 但是IE8不支持event.preventDefault();这个玩意，如果直接调用会报错
+					 */
+					event.preventDefault && event.preventDefault();
+					
+					
+					/*
+					 * 当滚轮滚动时，如果浏览器有滚动条，滚动条会随之滚动，
+					 * 这是浏览器的默认行为，如果不希望发生，则可以取消默认行为
+					 */
+					return false;
+					
+					
+					
+					
+				};
+				
+				//为火狐绑定滚轮事件
+				bind(box1,"DOMMouseScroll",box1.onmousewheel);
+				
+				
+			};
+			
+			
+			function bind(obj , eventStr , callback){
+				if(obj.addEventListener){
+					//大部分浏览器兼容的方式
+					obj.addEventListener(eventStr , callback , false);
+				}else{
+					/*
+					 * this是谁由调用方式决定
+					 * callback.call(obj)
+					 */
+					//IE8及以下
+					obj.attachEvent("on"+eventStr , function(){
+						//在匿名函数中调用回调函数
+						callback.call(obj);
+					});
+				}
+			}
+			
+		</script>
+	</head>
+	<body style="height: 2000px;">
+		
+		<div id="box1"></div>
+		
+	</body>
+</html>

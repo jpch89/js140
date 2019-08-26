@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box1{
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				position: absolute;
+			}
+			
+			
+		</style>
+		
+		<script type="text/javascript">
+			
+			//使div可以根据不同的方向键向不同的方向移动
+			/*
+			 * 按左键，div向左移
+			 * 按右键，div向右移
+			 * 。。。
+			 */
+			window.onload = function(){
+				
+				//为document绑定一个按键按下的事件
+				document.onkeydown = function(event){
+					event = event || window.event;
+					
+					//定义一个变量，来表示移动的速度
+					var speed = 10;
+					
+					//当用户按了ctrl以后，速度加快
+					if(event.ctrlKey){
+						speed = 500;
+					}
+					
+					/*
+					 * 37 左
+					 * 38 上
+					 * 39 右
+					 * 40 下
+					 */
+					switch(event.keyCode){
+						case 37:
+							//alert("向左"); left值减小
+							box1.style.left = box1.offsetLeft - speed + "px";
+							break;
+						case 39:
+							//alert("向右");
+							box1.style.left = box1.offsetLeft + speed + "px";
+							break;
+						case 38:
+							//alert("向上");
+							box1.style.top = box1.offsetTop - speed + "px";
+							break;
+						case 40:
+							//alert("向下");
+							box1.style.top = box1.offsetTop + speed + "px";
+							break;
+					}
+					
+				};
+				
+			};
+			
+			
+		</script>
+	</head>
+	<body>
+		<div id="box1"></div>
+	</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript">
+			/*
+			 * BOM
+			 * 	- 浏览器对象模型
+			 * 	- BOM可以使我们通过JS来操作浏览器
+			 * 	- 在BOM中为我们提供了一组对象，用来完成对浏览器的操作
+			 * 	- BOM对象
+			 * 		Window
+			 * 			- 代表的是整个浏览器的窗口，同时window也是网页中的全局对象
+			 * 		Navigator
+			 * 			- 代表的当前浏览器的信息，通过该对象可以来识别不同的浏览器
+			 * 		Location
+			 * 			- 代表当前浏览器的地址栏信息，通过Location可以获取地址栏信息，或者操作浏览器跳转页面
+			 * 		History
+			 * 			- 代表浏览器的历史记录，可以通过该对象来操作浏览器的历史记录
+			 * 				由于隐私原因，该对象不能获取到具体的历史记录，只能操作浏览器向前或向后翻页
+			 * 				而且该操作只在当次访问时有效
+			 * 		Screen
+			 * 			- 代表用户的屏幕的信息，通过该对象可以获取到用户的显示器的相关的信息
+			 * 
+			 * 
+			 * 		这些BOM对象在浏览器中都是作为window对象的属性保存的，
+			 * 			可以通过window对象来使用，也可以直接使用
+			 * 
+			 * 		
+			 */
+			
+			//console.log(navigator);
+			//console.log(location);
+			//console.log(history);
+			
+			/*
+			 * Navigator
+			 * 	- 代表的当前浏览器的信息，通过该对象可以来识别不同的浏览器
+			 * 	- 由于历史原因，Navigator对象中的大部分属性都已经不能帮助我们识别浏览器了
+			 * 	- 一般我们只会使用userAgent来判断浏览器的信息，
+			 * 		userAgent是一个字符串，这个字符串中包含有用来描述浏览器信息的内容，
+			 * 		不同的浏览器会有不同的userAgent
+			 * 
+			 * 火狐的userAgent
+			 * 	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0
+			 * 
+			 * Chrome的userAgent
+			 *  Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36
+			 * 
+			 * IE8
+			 * 	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/7.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E)
+			 * 
+			 * IE9
+			 * 	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/7.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E)
+			 * 
+			 * IE10
+			 * 	Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/7.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E)
+			 * 
+			 * IE11
+			 * 	Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; rv:11.0) like Gecko
+			 * 	- 在IE11中已经将微软和IE相关的标识都已经去除了，所以我们基本已经不能通过UserAgent来识别一个浏览器是否是IE了
+			 */
+			
+			//alert(navigator.appName);
+			
+			var ua = navigator.userAgent;
+			
+			console.log(ua);
+			
+			if(/firefox/i.test(ua)){
+				alert("你是火狐！！！");
+			}else if(/chrome/i.test(ua)){
+				alert("你是Chrome");
+			}else if(/msie/i.test(ua)){
+				alert("你是IE浏览器~~~");
+			}else if("ActiveXObject" in window){
+				alert("你是IE11，枪毙了你~~~");
+			}
+			
+			/*
+			 * 如果通过UserAgent不能判断，还可以通过一些浏览器中特有的对象，来判断浏览器的信息
+			 * 比如：ActiveXObject
+			 */
+			/*if("ActiveXObject" in window){
+				alert("你是IE，我已经抓住你了~~~");
+			}else{
+				alert("你不是IE~~~");
+			}*/
+			
+			/*alert("ActiveXObject" in window);*/
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>

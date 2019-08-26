@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+        <style type="text/css">
+            #box1 {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+            }
+        </style>
+
+        <script type="text/javascript">
+            window.onload = function() {
+                /*
+                 * 点击按钮以后，修改box1的大小
+                 */
+                //获取box1
+                var box1 = document.getElementById("box1");
+                //为按钮绑定单击响应函数
+                var btn01 = document.getElementById("btn01");
+                btn01.onclick = function() {
+                    //修改box1的宽度
+                    /*
+                     * 通过JS修改元素的样式：
+                     * 	语法：元素.style.样式名 = 样式值
+                     *
+                     * 注意：如果CSS的样式名中含有-，
+                     * 		这种名称在JS中是不合法的比如background-color
+                     * 		需要将这种样式名修改为驼峰命名法，
+                     * 		去掉-，然后将-后的字母大写
+                     *
+                     * 我们通过style属性设置的样式都是内联样式，
+                     * 	而内联样式有较高的优先级，所以通过JS修改的样式往往会立即显示
+                     *
+                     * 但是如果在样式中写了!important，则此时样式会有最高的优先级，
+                     * 	即使通过JS也不能覆盖该样式，此时将会导致JS修改样式失效
+                     * 	所以尽量不要为样式添加!important
+                     *
+                     *
+                     *
+                     */
+                    box1.style.width = "300px";
+                    box1.style.height = "300px";
+                    box1.style.backgroundColor = "yellow";
+                };
+
+                //点击按钮2以后，读取元素的样式
+                var btn02 = document.getElementById("btn02");
+                btn02.onclick = function() {
+                    //读取box1的样式
+                    /*
+                     * 	语法：元素.style.样式名
+                     *
+                     * 通过style属性设置和读取的都是内联样式
+                     * 	无法读取样式表中的样式
+                     */
+                    //alert(box1.style.height);
+                    alert(box1.style.width);
+                };
+            };
+        </script>
+    </head>
+    <body>
+        <button id="btn01">点我一下</button>
+        <button id="btn02">点我一下2</button>
+
+        <br /><br />
+
+        <div id="box1"></div>
+    </body>
+</html>

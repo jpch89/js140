@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript">
+			
+			
+			/*alert("hello");
+			
+			function fun(){
+				a = 10;
+			}*/
+			
+			var obj = {
+				
+				sayHello:function(){
+					//console.log(this);	
+					function test(){
+						console.log(this);
+					}
+					
+					test();
+				}
+				
+			};
+			
+			obj.sayHello();
+			
+			var fun = obj.sayHello;
+			
+			//fun();
+			
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>

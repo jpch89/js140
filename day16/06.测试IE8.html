@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			
+			window.onload = function(){
+				//分别为两个按钮绑定单击响应函数
+				var btn01 = document.getElementById("btn01");
+				var btn02 = document.getElementById("btn02");
+				
+				btn01.onclick = function(){
+					alert(1);
+				};
+				
+				btn02.onclick = function(){
+					alert(2);
+				};
+				
+				//设置btn01对鼠标按下相关的事件进行捕获
+				//当调用一个元素的setCapture()方法以后，这个元素将会把下一次所有的鼠标按下相关的事件捕获到自身上
+				btn01.setCapture();
+			};
+			
+		</script>
+	</head>
+	<body>
+		<button id="btn01">按钮01</button>
+		<button id="btn02">按钮02</button>
+	</body>
+</html>

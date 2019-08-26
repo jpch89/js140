@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>添加删除记录练习</title>
+		<link rel="stylesheet" type="text/css" href="ex_2_style/css.css" />
+		<script type="text/javascript">
+		
+			/*
+			 * 删除tr的响应函数
+			 */
+			function delA() {
+
+				//点击超链接以后需要删除超链接所在的那行
+				//这里我们点击那个超链接this就是谁
+				//获取当前tr
+				var tr = this.parentNode.parentNode;
+
+				//获取要删除的员工的名字
+				//var name = tr.getElementsByTagName("td")[0].innerHTML;
+				var name = tr.children[0].innerHTML;
+
+				//删除之前弹出一个提示框
+				/*
+				 * confirm()用于弹出一个带有确认和取消按钮的提示框
+				 * 	需要一个字符串作为参数，该字符串将会作为提示文字显示出来
+				 * 如果用户点击确认则会返回true，如果点击取消则返回false
+				 */
+				var flag = confirm("确认删除" + name + "吗?");
+
+				//如果用户点击确认
+				if(flag) {
+					//删除tr
+					tr.parentNode.removeChild(tr);
+				}
+
+				/*
+				 * 点击超链接以后，超链接会跳转页面，这个是超链接的默认行为，
+				 * 	但是此时我们不希望出现默认行为，可以通过在响应函数的最后return false来取消默认行为
+				 */
+				return false;
+			};
+
+			window.onload = function() {
+
+				/*
+				 * 点击超链接以后，删除一个员工的信息
+				 */
+
+				//获取所有额超链接
+				var allA = document.getElementsByTagName("a");
+
+				//为每个超链接都绑定一个单击响应函数
+				for(var i = 0; i < allA.length; i++) {
+					allA[i].onclick = delA;
+				}
+
+				/*
+				 * 添加员工的功能
+				 * 	- 点击按钮以后，将员工的信息添加到表格中
+				 */
+
+				//为提交按钮绑定一个单击响应函数
+				var addEmpButton = document.getElementById("addEmpButton");
+				addEmpButton.onclick = function() {
+
+					//获取用户添加的员工信息
+					//获取员工的名字
+					var name = document.getElementById("empName").value;
+					//获取员工的email和salary
+					var email = document.getElementById("email").value;
+					var salary = document.getElementById("salary").value;
+
+					//alert(name+","+email+","+salary);
+					/*
+					 *  <tr>
+							<td>Tom</td>
+							<td>tom@tom.com</td>
+							<td>5000</td>
+							<td><a href="javascript:;">Delete</a></td>
+						</tr>
+						需要将获取到的信息保存到tr中
+					 */
+
+					//创建一个tr
+					var tr = document.createElement("tr");
+
+					//创建四个td
+					var nameTd = document.createElement("td");
+					var emailTd = document.createElement("td");
+					var salaryTd = document.createElement("td");
+					var aTd = document.createElement("td");
+
+					//创建一个a元素
+					var a = document.createElement("a");
+
+					//创建文本节点
+					var nameText = document.createTextNode(name);
+					var emailText = document.createTextNode(email);
+					var salaryText = document.createTextNode(salary);
+					var delText = document.createTextNode("Delete");
+
+					//将文本条件到td中
+					nameTd.appendChild(nameText);
+					emailTd.appendChild(emailText);
+					salaryTd.appendChild(salaryText);
+
+					//向a中添加文本
+					a.appendChild(delText);
+					//将a添加到td中
+					aTd.appendChild(a);
+
+					//将td添加到tr中
+					tr.appendChild(nameTd);
+					tr.appendChild(emailTd);
+					tr.appendChild(salaryTd);
+					tr.appendChild(aTd);
+
+					//向a中添加href属性
+					a.href = "javascript:;";
+
+					//为新添加的a再绑定一次单击响应函数
+					a.onclick = delA;
+
+					//获取table
+					var employeeTable = document.getElementById("employeeTable");
+					//获取employeeTable中的tbody
+					var tbody = employeeTable.getElementsByTagName("tbody")[0];
+					//将tr添加到tbodye中
+					tbody.appendChild(tr);
+
+				};
+
+			};
+		</script>
+	</head>
+
+	<body>
+
+		<table id="employeeTable">
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Salary</th>
+				<th>&nbsp;</th>
+			</tr>
+			<tr>
+				<td>Tom</td>
+				<td>tom@tom.com</td>
+				<td>5000</td>
+				<td>
+					<a href="javascript:;">Delete</a>
+				</td>
+			</tr>
+			<tr>
+				<td>Jerry</td>
+				<td>jerry@sohu.com</td>
+				<td>8000</td>
+				<td>
+					<a href="deleteEmp?id=002">Delete</a>
+				</td>
+			</tr>
+			<tr>
+				<td>Bob</td>
+				<td>bob@tom.com</td>
+				<td>10000</td>
+				<td>
+					<a href="deleteEmp?id=003">Delete</a>
+				</td>
+			</tr>
+		</table>
+
+		<div id="formDiv">
+
+			<h4>添加新员工</h4>
+
+			<table>
+				<tr>
+					<td class="word">name: </td>
+					<td class="inp">
+						<input type="text" name="empName" id="empName" />
+					</td>
+				</tr>
+				<tr>
+					<td class="word">email: </td>
+					<td class="inp">
+						<input type="text" name="email" id="email" />
+					</td>
+				</tr>
+				<tr>
+					<td class="word">salary: </td>
+					<td class="inp">
+						<input type="text" name="salary" id="salary" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<button id="addEmpButton">
+						Submit
+					</button>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+
+	</body>
+
+</html>

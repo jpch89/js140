@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+        <style type="text/css">
+            #box1 {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                /*
+				 * 开启box1的绝对定位
+				 */
+                position: absolute;
+            }
+        </style>
+
+        <script type="text/javascript">
+            window.onload = function() {
+                /*
+                 * 使div可以跟随鼠标移动
+                 */
+
+                //获取box1
+                var box1 = document.getElementById("box1");
+                //绑定鼠标移动事件
+                document.onmousemove = function(event) {
+                    //解决兼容问题
+                    event = event || window.event;
+
+                    //获取滚动条滚动的距离
+                    /*
+                     * chrome认为浏览器的滚动条是body的，可以通过body.scrollTop来获取
+                     * 火狐等浏览器认为浏览器的滚动条是html的，
+                     */
+                    var st = document.body.scrollTop || document.documentElement.scrollTop;
+                    var sl = document.body.scrollLeft || document.documentElement.scrollLeft;
+                    //var st = document.documentElement.scrollTop;
+
+                    //获取到鼠标的坐标
+                    /*
+                     * clientX和clientY
+                     * 	用于获取鼠标在当前的可见窗口的坐标
+                     * div的偏移量，是相对于整个页面的
+                     *
+                     * pageX和pageY可以获取鼠标相对于当前页面的坐标
+                     * 	但是这个两个属性在IE8中不支持，所以如果需要兼容IE8，则不要使用
+                     */
+                    var left = event.clientX;
+                    var top = event.clientY;
+
+                    //设置div的偏移量
+                    box1.style.left = left + sl + "px";
+                    box1.style.top = top + st + "px";
+                };
+
+                var box2 = document.getElementById("box2");
+                box2.onmousemove = function(event) {
+                    event = event || window.event;
+
+                    event.cancelBubble = true;
+                };
+            };
+        </script>
+    </head>
+    <body style="height: 1000px;width: 2000px;">
+        <div id="box2" style="width: 500px; height: 500px; background-color: #bfa;"></div>
+        <div id="box1"></div>
+    </body>
+</html>
